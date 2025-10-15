@@ -12,21 +12,27 @@
     <!-- Custom styles for kiosk screen -->
     <style>
         body {
-            width: 375.688px;
-            height: 699px;
+            width: 100vw;
+            height: 100vh;
             margin: 0;
             padding: 0;
             overflow: hidden;
             font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .kiosk-container {
-            width: 100%;
-            height: 100%;
+            width: 375.688px;
+            height: 699px;
             display: flex;
             flex-direction: column;
             position: relative;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
         
         .halloween-bg {
