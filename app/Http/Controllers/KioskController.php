@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ProcessDraculaImage;
 use App\Models\KioskSession;
 use App\Services\GeminiService;
 use Illuminate\Http\Request;
@@ -154,9 +155,9 @@ class KioskController extends Controller
             return redirect()->route('kiosk.welcome');
         }
 
-        // Start processing in the background
-        \Log::info('Starting image processing...');
-        $this->processImage($session);
+        // Dispatch the AI processing job to the queue
+        \Log::info('Dispatching AI processing job...');
+        ProcessDraculaImage::dispatch($session);
 
         return view('kiosk.processing', compact('session'));
     }
@@ -167,6 +168,9 @@ class KioskController extends Controller
     public function checkStatus($sessionId)
     {
         $session = KioskSession::where('session_id', $sessionId)->firstOrFail();
+
+        // Refresh the session to get the latest status
+        $session->refresh();
 
         return response()->json([
             'status' => $session->status,
@@ -189,36 +193,6 @@ class KioskController extends Controller
         return view('kiosk.result', compact('session'));
     }
 
-    /**
-     * Process the image using Gemini API
-     */
-    private function processImage(KioskSession $session)
-    {
-        \Log::info('Processing image for session: ' . $session->session_id);
-        \Log::info('Original image path: ' . $session->original_image_path);
-
-        $session->update(['status' => 'processing']);
-
-            // Use Gemini service to process the image
-            \Log::info('Calling Gemini service...');
-            $result = $this->geminiService->generateDraculaImage($session->original_image_path);
-            \Log::info('Gemini service result: ', $result);
-
-            if ($result['success']) {
-                $session->update([
-                    'processed_image_path' => $result['processed_image_path'],
-                    'gemini_response' => $result,
-                    'status' => 'completed',
-                    'completed_at' => now()
-                ]);
-            } else {
-                $session->update([
-                    'status' => 'failed',
-                    'gemini_response' => $result
-                ]);
-            }
-
-    }
 
     /**
      * Retake photo (go back to camera)
