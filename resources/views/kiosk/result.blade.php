@@ -3,49 +3,37 @@
 @section('content')
 <div class="relative w-full h-full">
     <!-- Full Screen Processed Image -->
-    @if($session->processed_image_path)
-        <img 
-            src="{{ Storage::url($session->processed_image_path) }}" 
-            alt="Your Dracula transformation" 
+                    @if($session->processed_image_path)
+                        <img 
+                            src="{{ Storage::url($session->processed_image_path) }}" 
+                            alt="Your Dracula transformation" 
             class="absolute inset-0 w-full h-full object-cover"
-            id="resultImage"
-        >
-    @else
+                            id="resultImage"
+                        >
+                    @else
         <div class="absolute inset-0 w-full h-full bg-gray-800 flex items-center justify-center">
-            <p class="text-gray-400">Image processing...</p>
-        </div>
-    @endif
+                            <p class="text-gray-400">Image processing...</p>
+                        </div>
+                    @endif
     
-    <!-- QR Code Section Overlay at Bottom -->
-    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-80 p-6 flex flex-col items-center">
-        <!-- QR Code -->
-        <div class="mb-4">
-            <div id="qrCode" class="bg-white p-4 rounded-lg shadow-lg">
+    <!-- Bottom UI Elements Overlay -->
+    <div class="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-end">
+        <!-- Daintee Logo on Left -->
+        <div class="flex items-center">
+            <div class="text-red-600 font-bold" style="font-family: 'Creepster', cursive; font-size: 1.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
+                Daintee
+            </div>
+            </div>
+            
+        <!-- QR Code on Right -->
+        <div class="flex flex-col items-center">
+            <div id="qrCode" class="bg-white p-2 rounded shadow-lg mb-2">
                 <!-- QR Code will be generated here -->
             </div>
-        </div>
-        
-        <!-- QR Code Text -->
-        <div class="text-center text-white">
-            <p class="text-sm font-semibold mb-1">Download Your Image</p>
-            <p class="text-xs text-gray-300">Using the QR Code</p>
-        </div>
-        
-        <!-- Action Buttons -->
-        <div class="mt-6 flex space-x-4">
-            <button 
-                onclick="startNew()" 
-                class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 text-sm"
-            >
-                🔄 Transform Again
-            </button>
-            
-            <button 
-                onclick="goHome()"
-                class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 text-sm"
-            >
-                🏠 Home
-            </button>
+            <div class="text-center text-white">
+                <p class="text-xs font-semibold">Download Your Image</p>
+                <p class="text-xs text-gray-300">Using the QR Code</p>
+            </div>
         </div>
     </div>
 </div>
@@ -56,15 +44,6 @@
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 
 <script>
-    function startNew() {
-        if (confirm('Start a new transformation?')) {
-            window.location.href = "{{ route('kiosk.new') }}";
-        }
-    }
-    
-    function goHome() {
-        window.location.href = "{{ route('kiosk.welcome') }}";
-    }
     
     // Generate QR Code for current URL
     function generateQRCode() {
@@ -83,7 +62,7 @@
             // Create canvas element
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            const size = 150;
+            const size = 80; // Smaller QR code
             const cellSize = size / qr.getModuleCount();
             
             canvas.width = size;
@@ -112,8 +91,8 @@
             console.error('QR Code generation failed:', error);
             // Fallback: show URL as text
             qrContainer.innerHTML = `
-                <div class="text-center p-4" style="width: 150px; height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                    <p class="text-xs text-gray-600 mb-2">Scan to download:</p>
+                <div class="text-center p-2" style="width: 80px; height: 80px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <p class="text-xs text-gray-600 mb-1">Scan:</p>
                     <p class="text-xs text-gray-800 break-all text-center">${currentUrl}</p>
                 </div>
             `;
@@ -127,10 +106,10 @@
         
         // Use QR Server API as fallback
         const qrImage = document.createElement('img');
-        qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(currentUrl)}`;
+        qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=${encodeURIComponent(currentUrl)}`;
         qrImage.alt = 'QR Code';
-        qrImage.style.width = '150px';
-        qrImage.style.height = '150px';
+        qrImage.style.width = '80px';
+        qrImage.style.height = '80px';
         
         qrImage.onload = function() {
             qrContainer.innerHTML = '';
@@ -142,8 +121,8 @@
             console.error('Online QR service failed');
             // Show fallback text
             qrContainer.innerHTML = `
-                <div class="text-center p-4" style="width: 150px; height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                    <p class="text-xs text-gray-600 mb-2">Scan to download:</p>
+                <div class="text-center p-2" style="width: 80px; height: 80px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <p class="text-xs text-gray-600 mb-1">Scan:</p>
                     <p class="text-xs text-gray-800 break-all text-center">${currentUrl}</p>
                 </div>
             `;
