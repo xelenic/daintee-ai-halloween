@@ -1,25 +1,23 @@
 @extends('kiosk.layout')
 
 @section('content')
-<div class="relative w-full h-full flex flex-col">
+<div class="relative w-full h-full">
     <!-- Full Screen Processed Image -->
-    <div class="flex-1 relative">
-        @if($session->processed_image_path)
-            <img 
-                src="{{ Storage::url($session->processed_image_path) }}" 
-                alt="Your Dracula transformation" 
-                class="w-full h-full object-cover"
-                id="resultImage"
-            >
-        @else
-            <div class="w-full h-full bg-gray-800 flex items-center justify-center">
-                <p class="text-gray-400">Image processing...</p>
-            </div>
-        @endif
-    </div>
+    @if($session->processed_image_path)
+        <img 
+            src="{{ Storage::url($session->processed_image_path) }}" 
+            alt="Your Dracula transformation" 
+            class="absolute inset-0 w-full h-full object-cover"
+            id="resultImage"
+        >
+    @else
+        <div class="absolute inset-0 w-full h-full bg-gray-800 flex items-center justify-center">
+            <p class="text-gray-400">Image processing...</p>
+        </div>
+    @endif
     
-    <!-- QR Code Section at Bottom -->
-    <div class="bg-black bg-opacity-80 p-6 flex flex-col items-center">
+    <!-- QR Code Section Overlay at Bottom -->
+    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-80 p-6 flex flex-col items-center">
         <!-- QR Code -->
         <div class="mb-4">
             <div id="qrCode" class="bg-white p-4 rounded-lg shadow-lg">
