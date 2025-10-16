@@ -1,41 +1,26 @@
 @extends('kiosk.layout')
 
 @section('content')
-<div class="text-center text-white">
-    <div class="mb-8">
-        <h1 class="text-4xl font-bold spooky-text mb-4 pulse-animation">🧛‍♂️</h1>
-        <h2 class="text-3xl font-bold spooky-text mb-2">HALLOWEEN</h2>
-        <h3 class="text-2xl font-bold text-yellow-400 mb-6">DRACULA TRANSFORMATION</h3>
+<div class="relative w-full h-full">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+        <img src="{{ asset('01/BG.png') }}" alt="Background" class="w-full h-full object-cover">
     </div>
-    
-    <div class="mb-8">
-        <p class="text-lg mb-4 text-gray-200">Transform yourself into Count Dracula!</p>
-        <p class="text-sm text-gray-300 mb-8">Take a photo and watch the magic happen</p>
-    </div>
-    
-    <div class="mb-8">
-        <div class="bg-black bg-opacity-50 rounded-lg p-6 mb-6">
-            <h4 class="text-xl font-bold text-yellow-400 mb-4">How it works:</h4>
-            <div class="text-left space-y-2 text-sm text-gray-200">
-                <div class="flex items-center">
-                    <span class="text-red-500 mr-2">1.</span>
-                    <span>Enter your phone number</span>
-                </div>
-                <div class="flex items-center">
-                    <span class="text-red-500 mr-2">2.</span>
-                    <span>Take your photo</span>
-                </div>
-                <div class="flex items-center">
-                    <span class="text-red-500 mr-2">3.</span>
-                    <span>Get your Dracula transformation!</span>
-                </div>
-            </div>
+
+    <!-- Content Overlay -->
+    <div class="relative z-10 flex flex-col items-center justify-center h-full p-6">
+        <!-- Dracula Logo -->
+        <div class="mb-8">
+            <img src="{{ asset('01/Dracula Logo.png') }}" alt="Dracula Logo" class="mx-auto max-w-xs" style="margin-top: 33vh;">
+        </div>
+
+        <!-- Continue Button -->
+        <div class="mt-auto mb-8">
+            <button onclick="startExperience()" class="transition-all duration-300 transform hover:scale-105">
+                <img src="{{ asset('01/Button_Continue.png') }}" alt="Continue" class="mx-auto" style="height: 8vh;">
+            </button>
         </div>
     </div>
-    
-    <button onclick="startExperience()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg glow-effect transition-all duration-300 transform hover:scale-105">
-        START TRANSFORMATION
-    </button>
 </div>
 @endsection
 
@@ -44,7 +29,7 @@
     function startExperience() {
         window.location.href = "{{ route('kiosk.phone') }}";
     }
-    
+
     // Auto-start after 10 seconds if no interaction
     setTimeout(function() {
         if (confirm('Ready to transform into Dracula?')) {

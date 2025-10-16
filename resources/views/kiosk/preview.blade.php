@@ -1,47 +1,62 @@
 @extends('kiosk.layout')
 
 @section('content')
-<div class="text-center text-white w-full">
-    <div class="mb-6">
-        <h2 class="text-2xl font-bold spooky-text mb-2">📸</h2>
-        <h3 class="text-xl font-bold text-yellow-400 mb-2">PHOTO PREVIEW</h3>
-        <p class="text-gray-300">Is this photo good for your transformation?</p>
+<div class="relative w-full h-full">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+        <img src="{{ asset('04/BG.png') }}" alt="Background" class="w-full h-full object-cover">
     </div>
     
-    <div class="mb-6">
-        <div class="bg-black bg-opacity-50 rounded-lg p-4 mx-auto max-w-xs">
-            <img 
-                src="{{ Storage::url($session->original_image_path) }}" 
-                alt="Your photo" 
-                class="w-full h-64 object-cover rounded-lg"
-                id="previewImage"
-            >
+    <!-- Content Overlay -->
+    <div class="relative z-10 flex flex-col items-center justify-center h-full p-6">
+        <!-- Dracula Logo -->
+        <div class="mb-6">
+            <img src="{{ asset('04/Dracula Logo.png') }}" alt="Dracula Logo" class="mx-auto max-w-xs">
         </div>
-    </div>
-    
-    <div class="space-y-4">
-        <button 
-            onclick="confirmPhoto()" 
-            id="confirmBtn"
-            class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-6 rounded-lg glow-effect transition-all duration-300 transform hover:scale-105"
-        >
-            ✅ YES, TRANSFORM ME!
-        </button>
         
-        <button 
-            onclick="retakePhoto()" 
-            id="retakeBtn"
-            class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
-        >
-            🔄 RETAKE PHOTO
-        </button>
+        <!-- Photo Preview with Frame -->
+        <div class="mb-6 relative">
+            <img src="{{ asset('04/P_Frame.png') }}" alt="Photo Frame" class="mx-auto max-w-xs">
+            <div class="absolute inset-0 flex items-center justify-center">
+                <img 
+                    src="{{ Storage::url($session->original_image_path) }}" 
+                    alt="Your photo" 
+                    class="w-48 h-48 object-cover rounded-lg"
+                    id="previewImage"
+                >
+            </div>
+        </div>
         
-        <button 
-            onclick="goBack()"
-            class="text-gray-400 hover:text-white transition-colors duration-300"
-        >
-            ← Back to Camera
-        </button>
+        <!-- Action Buttons -->
+        <div class="space-y-4 mb-8">
+            <button 
+                onclick="confirmPhoto()" 
+                id="confirmBtn"
+                class="w-full transition-all duration-300 transform hover:scale-105"
+            >
+                <img src="{{ asset('04/Button_Next.png') }}" alt="Yes, Transform Me!" class="mx-auto">
+            </button>
+            
+            <button 
+                onclick="retakePhoto()" 
+                id="retakeBtn"
+                class="w-full transition-all duration-300 transform hover:scale-105"
+            >
+                <img src="{{ asset('04/Button_Retake.png') }}" alt="Retake Photo" class="mx-auto">
+            </button>
+            
+            <button 
+                onclick="goBack()"
+                class="text-gray-400 hover:text-white transition-colors duration-300"
+            >
+                ← Back to Camera
+            </button>
+        </div>
+        
+        <!-- Footer -->
+        <div class="mt-auto">
+            <img src="{{ asset('04/Footer.png') }}" alt="Footer" class="mx-auto">
+        </div>
     </div>
 </div>
 

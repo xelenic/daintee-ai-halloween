@@ -6,6 +6,9 @@
     <title>Halloween Dracula Kiosk</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -18,7 +21,7 @@
             padding: 0;
             overflow: hidden;
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: #000;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -30,9 +33,10 @@
             display: flex;
             flex-direction: column;
             position: relative;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: #000;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
         }
         
         .halloween-bg {
@@ -82,9 +86,8 @@
         }
         
         .camera-container {
-            width: 100%;
-            height: 100%;
             position: relative;
+            display: inline-block;
         }
         
         #video {

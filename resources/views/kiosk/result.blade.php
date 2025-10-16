@@ -1,60 +1,76 @@
 @extends('kiosk.layout')
 
 @section('content')
-<div class="text-center text-white w-full">
-    <div class="mb-6">
-        <h1 class="text-4xl font-bold spooky-text mb-4 pulse-animation">🧛‍♂️</h1>
-        <h2 class="text-2xl font-bold spooky-text mb-2">TRANSFORMATION COMPLETE!</h2>
-        <p class="text-gray-300">Your Dracula transformation is ready</p>
+<div class="relative w-full h-full">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+        <img src="{{ asset('05/BG.png') }}" alt="Background" class="w-full h-full object-cover">
     </div>
     
-    <div class="mb-6">
-        <div class="bg-black bg-opacity-50 rounded-lg p-4 mx-auto max-w-xs">
-            @if($session->processed_image_path)
-                <img 
-                    src="{{ Storage::url($session->processed_image_path) }}" 
-                    alt="Your Dracula transformation" 
-                    class="w-full h-64 object-cover rounded-lg glow-effect"
-                    id="resultImage"
-                >
-            @else
-                <div class="w-full h-64 bg-gray-800 rounded-lg flex items-center justify-center">
-                    <p class="text-gray-400">Image processing...</p>
+    <!-- Content Overlay -->
+    <div class="relative z-10 flex flex-col items-center justify-center h-full p-6">
+        <!-- Dracula Logo -->
+        <div class="mb-6">
+            <img src="{{ asset('06/Dracula Logo.png') }}" alt="Dracula Logo" class="mx-auto max-w-xs">
+        </div>
+        
+        <!-- Result Content -->
+        <div class="mb-6 text-center text-white">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold spooky-text mb-2">TRANSFORMATION COMPLETE!</h2>
+                <p class="text-gray-300">Your Dracula transformation is ready</p>
+            </div>
+            
+            <div class="mb-6">
+                <div class="bg-black bg-opacity-50 rounded-lg p-4 mx-auto max-w-xs">
+                    @if($session->processed_image_path)
+                        <img 
+                            src="{{ Storage::url($session->processed_image_path) }}" 
+                            alt="Your Dracula transformation" 
+                            class="w-full h-64 object-cover rounded-lg glow-effect"
+                            id="resultImage"
+                        >
+                    @else
+                        <div class="w-full h-64 bg-gray-800 rounded-lg flex items-center justify-center">
+                            <p class="text-gray-400">Image processing...</p>
+                        </div>
+                    @endif
                 </div>
-            @endif
+            </div>
+            
+            <div class="mb-6">
+                <div class="bg-black bg-opacity-50 rounded-lg p-4">
+                    <h3 class="text-lg font-bold text-red-400 mb-2">🦇 Congratulations!</h3>
+                    <p class="text-sm text-gray-200 mb-2">You've been transformed into Count Dracula!</p>
+                    <p class="text-xs text-gray-400">Your transformation has been sent to: {{ $session->phone_number }}</p>
+                </div>
+            </div>
+            
+            <div class="space-y-4">
+                <button 
+                    onclick="shareResult()" 
+                    class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-6 rounded-lg glow-effect transition-all duration-300 transform hover:scale-105"
+                >
+                    📱 SHARE YOUR TRANSFORMATION
+                </button>
+                
+                <button 
+                    onclick="startNew()" 
+                    class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
+                >
+                    🔄 TRANSFORM AGAIN
+                </button>
+                
+                <button 
+                    onclick="goHome()"
+                    class="text-gray-400 hover:text-white transition-colors duration-300"
+                >
+                    🏠 Back to Home
+                </button>
+            </div>
         </div>
     </div>
-    
-    <div class="mb-6">
-        <div class="bg-black bg-opacity-50 rounded-lg p-4">
-            <h3 class="text-lg font-bold text-red-400 mb-2">🦇 Congratulations!</h3>
-            <p class="text-sm text-gray-200 mb-2">You've been transformed into Count Dracula!</p>
-            <p class="text-xs text-gray-400">Your transformation has been sent to: {{ $session->phone_number }}</p>
-        </div>
-    </div>
-    
-    <div class="space-y-4">
-        <button 
-            onclick="shareResult()" 
-            class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-6 rounded-lg glow-effect transition-all duration-300 transform hover:scale-105"
-        >
-            📱 SHARE YOUR TRANSFORMATION
-        </button>
-        
-        <button 
-            onclick="startNew()" 
-            class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
-        >
-            🔄 TRANSFORM AGAIN
-        </button>
-        
-        <button 
-            onclick="goHome()"
-            class="text-gray-400 hover:text-white transition-colors duration-300"
-        >
-            🏠 Back to Home
-        </button>
-    </div>
+</div>
     
     <!-- Share modal -->
     <div id="shareModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center hidden">

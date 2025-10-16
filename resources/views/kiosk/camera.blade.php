@@ -1,30 +1,48 @@
 @extends('kiosk.layout')
 
 @section('content')
-<div class="camera-container">
-    <video id="video" autoplay playsinline></video>
-    <canvas id="canvas" style="display: none;"></canvas>
-    
-    <div class="camera-overlay">
-        <div class="text-center text-white">
-            <div class="mb-6">
-                <h2 class="text-2xl font-bold spooky-text mb-2">📸</h2>
-                <p class="text-lg">Position yourself in the frame</p>
-                <p class="text-sm text-gray-300">Look directly at the camera</p>
+<div class="relative w-full h-full flex flex-col">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+        <img src="{{ asset('03/BG.png') }}" alt="Background" class="w-full h-full object-cover">
+    </div>
+
+    <!-- Header with Daintee Logo -->
+    <div class="relative z-10 flex-1 flex items-center justify-center">
+        <div class="mb-8">
+            <img src="{{ asset('01/Dracula Logo.png') }}" alt="Dracula Logo" class="mx-auto max-w-xs" style="margin-top: 6vh;height: 12vh;">
+        </div>
+    </div>
+
+    <!-- Camera Frame Container -->
+    <div class="relative z-10 flex-1 flex items-center justify-center px-8">
+        <div class="relative">
+            <!-- White Frame with Red Border -->
+            <div class="bg-white border-2 border-red-600 rounded-lg p-4 shadow-2xl" style="width: 280px;height: 260px;padding-left: unset;padding-right: unset;padding-top: unset;padding-bottom: unset;margin-bottom: 40px;border-radius: 5vh;">
+                <!-- Video fills the frame -->
+                <video id="video" autoplay playsinline class="w-full h-full object-cover rounded" style="border-radius: 5vh;"></video>
+                <canvas id="canvas" style="display: none;"></canvas>
             </div>
-            
-            <div class="capture-button" onclick="capturePhoto()">
-                <span>📷</span>
-            </div>
-            
-            <div class="mt-6">
-                <button 
-                    onclick="goBack()"
-                    class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300"
-                >
-                    ← Back
-                </button>
-            </div>
+        </div>
+    </div>
+
+    <!-- Controls Section -->
+    <div class="relative z-10 flex-1 flex flex-col items-center justify-center px-8">
+        <!-- Take Snap Button -->
+        <div class="mb-6">
+            <button onclick="capturePhoto()" class="transition-all duration-300 transform hover:scale-105">
+                <img src="{{ asset('03/Button_Snap.png') }}" alt="Snap Photo" class="mx-auto" style="height: 8vh;">
+            </button>
+        </div>
+
+        <!-- Back Button -->
+        <div class="mb-4">
+            <button
+                onclick="goBack()"
+                class="text-gray-300 hover:text-white transition-colors duration-300 text-sm"
+            >
+                ← Back
+            </button>
         </div>
     </div>
 </div>
@@ -44,7 +62,7 @@
     let video = document.getElementById('video');
     let canvas = document.getElementById('canvas');
     let context = canvas.getContext('2d');
-    
+
     // Initialize camera
     async function initCamera() {
         try {
@@ -61,34 +79,34 @@
             alert('Unable to access camera. Please check permissions.');
         }
     }
-    
+
     function capturePhoto() {
         if (!stream) {
             alert('Camera not ready. Please wait.');
             return;
         }
-        
+
         // Set canvas dimensions to match video
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
-        
+
         // Draw the video frame to canvas
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        
+
         // Convert canvas to blob
         canvas.toBlob(function(blob) {
             uploadPhoto(blob);
         }, 'image/jpeg', 0.8);
     }
-    
+
     function uploadPhoto(blob) {
         const formData = new FormData();
         formData.append('photo', blob, 'photo.jpg');
         formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
-        
+
         // Show loading
         $('#loadingOverlay').removeClass('hidden');
-        
+
         $.ajax({
             url: "{{ route('kiosk.photo.process', $session->session_id) }}",
             method: 'POST',
@@ -105,20 +123,20 @@
             },
             error: function(xhr) {
                 let errorMessage = 'Error capturing photo. Please try again.';
-                
+
                 if (xhr.responseJSON && xhr.responseJSON.errors) {
                     const errors = xhr.responseJSON.errors;
                     if (errors.photo) {
                         errorMessage = errors.photo[0];
                     }
                 }
-                
+
                 alert(errorMessage);
                 $('#loadingOverlay').addClass('hidden');
             }
         });
     }
-    
+
     function goBack() {
         // Stop camera stream
         if (stream) {
@@ -126,12 +144,12 @@
         }
         window.location.href = "{{ route('kiosk.phone') }}";
     }
-    
+
     // Initialize camera when page loads
     $(document).ready(function() {
         initCamera();
     });
-    
+
     // Cleanup when leaving page
     $(window).on('beforeunload', function() {
         if (stream) {
