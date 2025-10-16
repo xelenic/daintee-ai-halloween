@@ -1,61 +1,57 @@
 @extends('kiosk.layout')
 
 @section('content')
-<div class="relative w-full h-full">
+<div class="relative w-full h-full flex flex-col">
     <!-- Background Image -->
     <div class="absolute inset-0">
         <img src="{{ asset('04/BG.png') }}" alt="Background" class="w-full h-full object-cover">
     </div>
-    
-    <!-- Content Overlay -->
-    <div class="relative z-10 flex flex-col items-center justify-center h-full p-6">
-        <!-- Dracula Logo -->
-        <div class="mb-6">
-            <img src="{{ asset('04/Dracula Logo.png') }}" alt="Dracula Logo" class="mx-auto max-w-xs">
+
+    <!-- Header with Dracula Logo -->
+    <div class="relative z-10 flex-1 flex items-center justify-center">
+        <div class="mb-8">
+            <img src="{{ asset('04/Dracula Logo.png') }}" alt="Dracula Logo" class="mx-auto max-w-xs" style="margin-top: 6vh;height: 12vh;">
         </div>
-        
-        <!-- Photo Preview with Frame -->
-        <div class="mb-6 relative">
-            <img src="{{ asset('04/P_Frame.png') }}" alt="Photo Frame" class="mx-auto max-w-xs">
-            <div class="absolute inset-0 flex items-center justify-center">
-                <img 
-                    src="{{ Storage::url($session->original_image_path) }}" 
-                    alt="Your photo" 
-                    class="w-48 h-48 object-cover rounded-lg"
+    </div>
+
+    <!-- Photo Preview Frame Container -->
+    <div class="relative z-10 flex-1 flex items-center justify-center px-8">
+        <div class="relative">
+            <!-- White Frame with Red Border containing the photo -->
+            <div class="bg-white border-2 border-red-600 rounded-lg shadow-2xl" style="width: 280px;height: 260px;border-radius: 5vh;">
+                <img
+                    src="{{ Storage::url($session->original_image_path) }}"
+                    alt="Your photo"
+                    class="w-full h-full object-cover rounded"
+                    style="border-radius: 5vh;"
                     id="previewImage"
                 >
             </div>
         </div>
-        
-        <!-- Action Buttons -->
-        <div class="space-y-4 mb-8">
-            <button 
-                onclick="confirmPhoto()" 
-                id="confirmBtn"
-                class="w-full transition-all duration-300 transform hover:scale-105"
-            >
-                <img src="{{ asset('04/Button_Next.png') }}" alt="Yes, Transform Me!" class="mx-auto">
-            </button>
-            
-            <button 
-                onclick="retakePhoto()" 
+    </div>
+
+    <!-- Controls Section -->
+    <div class="relative z-10 flex-1 flex flex-col items-center justify-center px-8">
+        <!-- RETAKE Button -->
+        <div class="mb-4">
+            <button
+                onclick="retakePhoto()"
                 id="retakeBtn"
-                class="w-full transition-all duration-300 transform hover:scale-105"
+                class="transition-all duration-300 transform hover:scale-105"
             >
-                <img src="{{ asset('04/Button_Retake.png') }}" alt="Retake Photo" class="mx-auto">
-            </button>
-            
-            <button 
-                onclick="goBack()"
-                class="text-gray-400 hover:text-white transition-colors duration-300"
-            >
-                ← Back to Camera
+                <img src="{{ asset('04/Button_Retake.png') }}" alt="Retake Photo" class="mx-auto" style="height: 6vh;">
             </button>
         </div>
-        
-        <!-- Footer -->
-        <div class="mt-auto">
-            <img src="{{ asset('04/Footer.png') }}" alt="Footer" class="mx-auto">
+
+        <!-- NEXT Button -->
+        <div class="mb-6">
+            <button
+                onclick="confirmPhoto()"
+                id="confirmBtn"
+                class="transition-all duration-300 transform hover:scale-105"
+            >
+                <img src="{{ asset('04/Button_Next.png') }}" alt="Next" class="mx-auto" style="height: 6vh;">
+            </button>
         </div>
     </div>
 </div>
@@ -76,7 +72,7 @@
         $('#loadingText').text('Starting transformation...');
         $('#confirmBtn').prop('disabled', true);
         $('#retakeBtn').prop('disabled', true);
-        
+
         $.ajax({
             url: "{{ route('kiosk.photo.confirm', $session->session_id) }}",
             method: 'POST',
@@ -101,14 +97,14 @@
             }
         });
     }
-    
+
     function retakePhoto() {
         if (confirm('Are you sure you want to retake the photo?')) {
             $('#loadingOverlay').removeClass('hidden');
             $('#loadingText').text('Preparing camera...');
             $('#confirmBtn').prop('disabled', true);
             $('#retakeBtn').prop('disabled', true);
-            
+
             $.ajax({
                 url: "{{ route('kiosk.retake', $session->session_id) }}",
                 method: 'POST',
@@ -134,11 +130,11 @@
             });
         }
     }
-    
+
     function goBack() {
         window.location.href = "{{ route('kiosk.camera', $session->session_id) }}";
     }
-    
+
     // Add some visual effects to the preview image
     $(document).ready(function() {
         $('#previewImage').on('load', function() {

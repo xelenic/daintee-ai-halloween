@@ -55,7 +55,6 @@ class GeminiService
             ]);
 
             $responseData = json_decode($response->getBody()->getContents(), true);
-
             // Check if we got an image response
             if (isset($responseData['candidates'][0]['content']['parts'][1]['inlineData']['data'])) {
                 $generatedImageData = $responseData['candidates'][0]['content']['parts'][1]['inlineData']['data'];
