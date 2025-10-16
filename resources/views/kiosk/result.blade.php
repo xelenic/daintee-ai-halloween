@@ -16,6 +16,7 @@
                         </div>
                     @endif
     
+    
     <!-- Bottom UI Elements Overlay -->
     <div class="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-end">
         <!-- Daintee Logo on Left -->
@@ -23,8 +24,8 @@
             <div class="text-red-600 font-bold" style="font-family: 'Creepster', cursive; font-size: 1.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
                 Daintee
             </div>
-            </div>
-            
+        </div>
+        
         <!-- QR Code on Right -->
         <div class="flex flex-col items-center">
             <div id="qrCode" class="bg-white p-2 rounded shadow-lg mb-2">
@@ -34,6 +35,18 @@
                 <p class="text-xs font-semibold">Download Your Image</p>
                 <p class="text-xs text-gray-300">Using the QR Code</p>
             </div>
+        </div>
+    </div>
+    
+    <!-- Download & Share Buttons (Only visible when accessed via QR code) -->
+    <div id="qrActions" class="absolute bottom-20 left-1/2 transform -translate-x-1/2 hidden">
+        <div class="bg-black bg-opacity-80 rounded-lg p-4 flex space-x-4">
+            <button onclick="downloadImage()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 text-sm">
+                📥 Download
+            </button>
+            <button onclick="shareImage()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 text-sm">
+                📤 Share
+            </button>
         </div>
     </div>
 </div>
@@ -47,7 +60,8 @@
     
     // Generate QR Code for current URL
     function generateQRCode() {
-        const currentUrl = window.location.href;
+        // Add QR parameter to URL for detection
+        const currentUrl = window.location.href + (window.location.href.includes('?') ? '&' : '?') + 'qr=true';
         const qrContainer = document.getElementById('qrCode');
         
         try {
@@ -101,7 +115,8 @@
     
     // Alternative QR code generation using online service
     function generateQRCodeOnline() {
-        const currentUrl = window.location.href;
+        // Add QR parameter to URL for detection
+        const currentUrl = window.location.href + (window.location.href.includes('?') ? '&' : '?') + 'qr=true';
         const qrContainer = document.getElementById('qrCode');
         
         // Use QR Server API as fallback
@@ -129,6 +144,110 @@
         };
     }
     
+    
+    // Check if accessed via QR code
+    function checkQRCodeAccess() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const referrer = document.referrer;
+        
+        // Check for QR code parameters or referrer
+        if (urlParams.get('qr') === 'true' || 
+            urlParams.get('from') === 'qr' ||
+            referrer.includes('qr') ||
+            sessionStorage.getItem('qrAccessed') === 'true') {
+            
+            // Show download and share buttons
+            $('#qrActions').removeClass('hidden').addClass('fade-in');
+            
+            // Mark as QR accessed
+            sessionStorage.setItem('qrAccessed', 'true');
+            
+            console.log('QR code access detected - showing download/share buttons');
+        }
+    }
+    
+    // Download image function
+    function downloadImage() {
+        const imageUrl = "{{ Storage::url($session->processed_image_path) }}";
+        const link = document.createElement('a');
+        link.href = imageUrl;
+        link.download = 'dracula-transformation.jpg';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Show success message
+        showMessage('Image downloaded successfully! 📥');
+    }
+    
+    // Share image function
+    function shareImage() {
+        const imageUrl = "{{ Storage::url($session->processed_image_path) }}";
+        const shareText = "🧛‍♂️ Check out my amazing Dracula transformation! Happy Halloween! 🦇";
+        const shareUrl = window.location.href;
+        
+        if (navigator.share) {
+            // Use native sharing if available
+            navigator.share({
+                title: 'My Dracula Transformation',
+                text: shareText,
+                url: shareUrl
+            }).then(() => {
+                showMessage('Shared successfully! 📤');
+            }).catch((err) => {
+                console.log('Error sharing:', err);
+                fallbackShare();
+            });
+        } else {
+            // Fallback to copy link
+            fallbackShare();
+        }
+    }
+    
+    // Fallback share function
+    function fallbackShare() {
+        const shareText = "🧛‍♂️ Check out my amazing Dracula transformation! Happy Halloween! 🦇";
+        const shareUrl = window.location.href;
+        const fullText = shareText + ' ' + shareUrl;
+        
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(fullText).then(() => {
+                showMessage('Link copied to clipboard! 📋');
+            }).catch(() => {
+                showMessage('Please copy the link manually: ' + shareUrl);
+            });
+        } else {
+            showMessage('Please copy the link manually: ' + shareUrl);
+        }
+    }
+    
+    // Show temporary message
+    function showMessage(message) {
+        const messageDiv = $('<div>')
+            .text(message)
+            .css({
+                'position': 'fixed',
+                'top': '50%',
+                'left': '50%',
+                'transform': 'translate(-50%, -50%)',
+                'background': 'rgba(0, 0, 0, 0.9)',
+                'color': 'white',
+                'padding': '15px 25px',
+                'border-radius': '8px',
+                'z-index': '10000',
+                'font-size': '16px',
+                'font-weight': 'bold'
+            });
+        
+        $('body').append(messageDiv);
+        
+        setTimeout(() => {
+            messageDiv.fadeOut(500, function() {
+                $(this).remove();
+            });
+        }, 3000);
+    }
+    
     // Initialize when page loads
     $(document).ready(function() {
         // Try to generate QR code locally first
@@ -143,6 +262,9 @@
         setTimeout(function() {
             $('#resultImage').addClass('fade-in');
         }, 500);
+        
+        // Check for QR code access
+        checkQRCodeAccess();
     });
 </script>
 @endsection
