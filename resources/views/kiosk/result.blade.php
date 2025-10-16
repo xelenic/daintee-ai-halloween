@@ -1,97 +1,52 @@
 @extends('kiosk.layout')
 
 @section('content')
-<div class="relative w-full h-full">
-    <!-- Background Image -->
-    <div class="absolute inset-0">
-        <img src="{{ asset('05/BG.png') }}" alt="Background" class="w-full h-full object-cover">
+<div class="relative w-full h-full flex flex-col">
+    <!-- Full Screen Processed Image -->
+    <div class="flex-1 relative">
+        @if($session->processed_image_path)
+            <img 
+                src="{{ Storage::url($session->processed_image_path) }}" 
+                alt="Your Dracula transformation" 
+                class="w-full h-full object-cover"
+                id="resultImage"
+            >
+        @else
+            <div class="w-full h-full bg-gray-800 flex items-center justify-center">
+                <p class="text-gray-400">Image processing...</p>
+            </div>
+        @endif
     </div>
     
-    <!-- Content Overlay -->
-    <div class="relative z-10 flex flex-col items-center justify-center h-full p-6">
-        <!-- Dracula Logo -->
-        <div class="mb-6">
-            <img src="{{ asset('06/Dracula Logo.png') }}" alt="Dracula Logo" class="mx-auto max-w-xs">
+    <!-- QR Code Section at Bottom -->
+    <div class="bg-black bg-opacity-80 p-6 flex flex-col items-center">
+        <!-- QR Code -->
+        <div class="mb-4">
+            <div id="qrCode" class="bg-white p-4 rounded-lg shadow-lg">
+                <!-- QR Code will be generated here -->
+            </div>
         </div>
         
-        <!-- Result Content -->
-        <div class="mb-6 text-center text-white">
-            <div class="mb-6">
-                <h2 class="text-2xl font-bold spooky-text mb-2">TRANSFORMATION COMPLETE!</h2>
-                <p class="text-gray-300">Your Dracula transformation is ready</p>
-            </div>
-            
-            <div class="mb-6">
-                <div class="bg-black bg-opacity-50 rounded-lg p-4 mx-auto max-w-xs">
-                    @if($session->processed_image_path)
-                        <img 
-                            src="{{ Storage::url($session->processed_image_path) }}" 
-                            alt="Your Dracula transformation" 
-                            class="w-full h-64 object-cover rounded-lg glow-effect"
-                            id="resultImage"
-                        >
-                    @else
-                        <div class="w-full h-64 bg-gray-800 rounded-lg flex items-center justify-center">
-                            <p class="text-gray-400">Image processing...</p>
-                        </div>
-                    @endif
-                </div>
-            </div>
-            
-            <div class="mb-6">
-                <div class="bg-black bg-opacity-50 rounded-lg p-4">
-                    <h3 class="text-lg font-bold text-red-400 mb-2">🦇 Congratulations!</h3>
-                    <p class="text-sm text-gray-200 mb-2">You've been transformed into Count Dracula!</p>
-                    <p class="text-xs text-gray-400">Your transformation has been sent to: {{ $session->phone_number }}</p>
-                </div>
-            </div>
-            
-            <div class="space-y-4">
-                <button 
-                    onclick="shareResult()" 
-                    class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-6 rounded-lg glow-effect transition-all duration-300 transform hover:scale-105"
-                >
-                    📱 SHARE YOUR TRANSFORMATION
-                </button>
-                
-                <button 
-                    onclick="startNew()" 
-                    class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
-                >
-                    🔄 TRANSFORM AGAIN
-                </button>
-                
-                <button 
-                    onclick="goHome()"
-                    class="text-gray-400 hover:text-white transition-colors duration-300"
-                >
-                    🏠 Back to Home
-                </button>
-            </div>
+        <!-- QR Code Text -->
+        <div class="text-center text-white">
+            <p class="text-sm font-semibold mb-1">Download Your Image</p>
+            <p class="text-xs text-gray-300">Using the QR Code</p>
         </div>
-    </div>
-</div>
-    
-    <!-- Share modal -->
-    <div id="shareModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center hidden">
-        <div class="bg-gray-800 rounded-lg p-6 mx-4 max-w-sm w-full">
-            <h3 class="text-xl font-bold text-white mb-4">Share Your Transformation</h3>
-            <div class="space-y-3">
-                <button onclick="shareWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg">
-                    📱 WhatsApp
-                </button>
-                <button onclick="shareFacebook()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg">
-                    📘 Facebook
-                </button>
-                <button onclick="shareTwitter()" class="w-full bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-4 rounded-lg">
-                    🐦 Twitter
-                </button>
-                <button onclick="copyLink()" class="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-lg">
-                    📋 Copy Link
-                </button>
-            </div>
-            <button onclick="closeShareModal()" class="w-full mt-4 text-gray-400 hover:text-white">
-                Cancel
+        
+        <!-- Action Buttons -->
+        <div class="mt-6 flex space-x-4">
+            <button 
+                onclick="startNew()" 
+                class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 text-sm"
+            >
+                🔄 Transform Again
+            </button>
+            
+            <button 
+                onclick="goHome()"
+                class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 text-sm"
+            >
+                🏠 Home
             </button>
         </div>
     </div>
@@ -99,45 +54,10 @@
 @endsection
 
 @section('scripts')
+<!-- QR Code Library -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+
 <script>
-    function shareResult() {
-        $('#shareModal').removeClass('hidden');
-    }
-    
-    function closeShareModal() {
-        $('#shareModal').addClass('hidden');
-    }
-    
-    function shareWhatsApp() {
-        const text = "🧛‍♂️ Check out my Dracula transformation! Happy Halloween! 🦇";
-        const url = encodeURIComponent(window.location.href);
-        window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
-        closeShareModal();
-    }
-    
-    function shareFacebook() {
-        const url = encodeURIComponent(window.location.href);
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
-        closeShareModal();
-    }
-    
-    function shareTwitter() {
-        const text = "🧛‍♂️ Check out my Dracula transformation! Happy Halloween! 🦇";
-        const url = encodeURIComponent(window.location.href);
-        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}`, '_blank');
-        closeShareModal();
-    }
-    
-    function copyLink() {
-        navigator.clipboard.writeText(window.location.href).then(function() {
-            alert('Link copied to clipboard!');
-            closeShareModal();
-        }).catch(function() {
-            alert('Unable to copy link. Please copy manually: ' + window.location.href);
-            closeShareModal();
-        });
-    }
-    
     function startNew() {
         if (confirm('Start a new transformation?')) {
             window.location.href = "{{ route('kiosk.new') }}";
@@ -148,50 +68,105 @@
         window.location.href = "{{ route('kiosk.welcome') }}";
     }
     
-    // Add celebration effects
-    $(document).ready(function() {
-        // Add confetti effect (simple version)
-        setTimeout(function() {
-            for (let i = 0; i < 20; i++) {
-                createConfetti();
-            }
-        }, 1000);
+    // Generate QR Code for current URL
+    function generateQRCode() {
+        const currentUrl = window.location.href;
+        const qrContainer = document.getElementById('qrCode');
         
-        // Auto-scroll to show the result
+        try {
+            // Clear any existing content
+            qrContainer.innerHTML = '';
+            
+            // Create QR code using qrcode-generator library
+            const qr = qrcode(0, 'M');
+            qr.addData(currentUrl);
+            qr.make();
+            
+            // Create canvas element
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const size = 150;
+            const cellSize = size / qr.getModuleCount();
+            
+            canvas.width = size;
+            canvas.height = size;
+            
+            // Fill white background
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Draw QR code
+            ctx.fillStyle = '#000000';
+            for (let row = 0; row < qr.getModuleCount(); row++) {
+                for (let col = 0; col < qr.getModuleCount(); col++) {
+                    if (qr.isDark(row, col)) {
+                        ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+                    }
+                }
+            }
+            
+            // Add canvas to container
+            qrContainer.appendChild(canvas);
+            
+            console.log('QR Code generated successfully');
+            
+        } catch (error) {
+            console.error('QR Code generation failed:', error);
+            // Fallback: show URL as text
+            qrContainer.innerHTML = `
+                <div class="text-center p-4" style="width: 150px; height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <p class="text-xs text-gray-600 mb-2">Scan to download:</p>
+                    <p class="text-xs text-gray-800 break-all text-center">${currentUrl}</p>
+                </div>
+            `;
+        }
+    }
+    
+    // Alternative QR code generation using online service
+    function generateQRCodeOnline() {
+        const currentUrl = window.location.href;
+        const qrContainer = document.getElementById('qrCode');
+        
+        // Use QR Server API as fallback
+        const qrImage = document.createElement('img');
+        qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(currentUrl)}`;
+        qrImage.alt = 'QR Code';
+        qrImage.style.width = '150px';
+        qrImage.style.height = '150px';
+        
+        qrImage.onload = function() {
+            qrContainer.innerHTML = '';
+            qrContainer.appendChild(qrImage);
+            console.log('QR Code loaded from online service');
+        };
+        
+        qrImage.onerror = function() {
+            console.error('Online QR service failed');
+            // Show fallback text
+            qrContainer.innerHTML = `
+                <div class="text-center p-4" style="width: 150px; height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <p class="text-xs text-gray-600 mb-2">Scan to download:</p>
+                    <p class="text-xs text-gray-800 break-all text-center">${currentUrl}</p>
+                </div>
+            `;
+        };
+    }
+    
+    // Initialize when page loads
+    $(document).ready(function() {
+        // Try to generate QR code locally first
+        try {
+            generateQRCode();
+        } catch (error) {
+            console.log('Local QR generation failed, trying online service...');
+            generateQRCodeOnline();
+        }
+        
+        // Add fade-in effect to the result image
         setTimeout(function() {
             $('#resultImage').addClass('fade-in');
         }, 500);
     });
-    
-    function createConfetti() {
-        const confetti = $('<div>').css({
-            position: 'fixed',
-            top: '-10px',
-            left: Math.random() * window.innerWidth + 'px',
-            width: '10px',
-            height: '10px',
-            backgroundColor: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7'][Math.floor(Math.random() * 5)],
-            borderRadius: '50%',
-            zIndex: 1000,
-            animation: 'fall 3s linear forwards'
-        });
-        
-        $('body').append(confetti);
-        
-        setTimeout(function() {
-            confetti.remove();
-        }, 3000);
-    }
-    
-    // Add CSS for confetti animation
-    $('<style>').text(`
-        @keyframes fall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-    `).appendTo('head');
 </script>
 @endsection
 
