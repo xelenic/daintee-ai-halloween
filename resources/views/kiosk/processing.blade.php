@@ -6,16 +6,16 @@
     <div class="absolute inset-0">
         <img src="{{ asset('05/BG.png') }}" alt="Background" class="w-full h-full object-cover">
     </div>
-    
+
     <!-- Content Overlay -->
-    <div class="relative z-10 flex flex-col items-center justify-center h-full">
+    <div class="relative z-10 flex flex-col items-center justify-center h-full" style="">
         <!-- Dracula Logo -->
         <div class="vh-mb-8">
             <img src="{{ asset('05/Dracula Logo.png') }}" alt="Dracula Logo" class="mx-auto max-w-xs">
         </div>
-        
+
         <!-- Processing Content -->
-        <div class="vh-mb-8 text-center text-white">
+        <div class="vh-mb-8 text-center text-white" style="margin-top: 15vh;">
             <div class="mb-6">
                 <div class="loading-spinner mx-auto mb-6"></div>
                 <div class="space-y-2">
@@ -23,7 +23,7 @@
                     <p class="text-sm text-gray-400" id="progressText">Please wait while we work our magic</p>
                 </div>
             </div>
-            
+
             <div class="vh-mb-8">
                 <div class="bg-black bg-opacity-50 rounded-lg">
                     <h3 class="text-lg font-bold text-red-400 mb-4">🦇 Transformation Progress</h3>
@@ -47,19 +47,13 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="text-sm text-gray-400">
                 <p>This may take 30-60 seconds</p>
                 <p>Please do not close this screen</p>
             </div>
         </div>
-        
-        <!-- Footer -->
-        <div class="mt-auto">
-            <img src="{{ asset('05/Footer.png') }}" alt="Footer" class="mx-auto" style="
-    height: 5vh;
-    margin-bottom: 3vh;">
-        </div>
+
     </div>
 </div>
 @endsection
@@ -73,7 +67,7 @@
         'Adding spooky effects...',
         'Finalizing your Dracula look...'
     ];
-    
+
     let progressMessages = [
         'Please wait while we work our magic',
         'Our AI is studying your features',
@@ -81,27 +75,27 @@
         'Adding the perfect vampire touches',
         'Almost ready for your big reveal!'
     ];
-    
+
     let currentMessageIndex = 0;
     let checkInterval;
-    
+
     function updateStatus() {
         const statusText = document.getElementById('statusText');
         const progressText = document.getElementById('progressText');
-        
+
         if (currentMessageIndex < statusMessages.length) {
             statusText.textContent = statusMessages[currentMessageIndex];
             progressText.textContent = progressMessages[currentMessageIndex];
             currentMessageIndex++;
         }
     }
-    
+
     function checkProcessingStatus() {
         $.ajax({
             url: "{{ route('kiosk.status', $session->session_id) }}",
             method: 'GET',
             success: function(response) {
-                
+
                 if (response.completed) {
                     // Processing complete, redirect to result
                     window.location.href = response.redirect;
@@ -119,18 +113,18 @@
             }
         });
     }
-    
+
     // Start status updates
     $(document).ready(function() {
         // Update status messages every 8 seconds
         setInterval(updateStatus, 8000);
-        
+
         // Check processing status every 3 seconds
         checkInterval = setInterval(checkProcessingStatus, 3000);
-        
+
         // Initial status check
         setTimeout(checkProcessingStatus, 2000);
-        
+
         // Update progress steps
         setTimeout(function() {
             $('#processingStep .w-4').removeClass('bg-yellow-500 pulse-animation').addClass('bg-green-500');
@@ -139,7 +133,7 @@
             $('#finalStep span').removeClass('text-gray-400').addClass('text-gray-200');
         }, 15000);
     });
-    
+
     // Cleanup interval when leaving page
     $(window).on('beforeunload', function() {
         if (checkInterval) {

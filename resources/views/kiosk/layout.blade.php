@@ -481,6 +481,44 @@
             height: 2.5vh;
             fill: currentColor;
         }
+
+        /* Home Button */
+        .home-btn {
+            position: absolute;
+            top: 2.5vh;
+            left: 2.5vh;
+            width: 5vh;
+            height: 5vh;
+            background: rgba(0, 0, 0, 0.7);
+            border: 0.25vh solid rgba(255, 255, 255, 0.3);
+            border-radius: 1vh;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.25vh;
+            transition: all 0.3s ease;
+            z-index: 2000;
+            backdrop-filter: blur(1.25vh);
+        }
+        
+        .home-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: scale(1.1);
+            box-shadow: 0 0 1.875vh rgba(255, 255, 255, 0.3);
+        }
+        
+        .home-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .home-btn svg {
+            width: 2.5vh;
+            height: 2.5vh;
+            fill: currentColor;
+        }
         
         /* Preloader Styles */
         .preloader {
@@ -623,6 +661,13 @@
     </div>
     
     <div class="kiosk-container">
+        <!-- Home Button -->
+        <button class="home-btn" id="homeBtn" onclick="goHome()" title="Go to Home">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+        </button>
+
         <!-- Full Screen Button -->
         <button class="fullscreen-btn" id="fullscreenBtn" onclick="toggleFullscreen()" title="Toggle Full Screen">
             <svg id="fullscreenIcon" viewBox="0 0 24 24">
@@ -859,6 +904,11 @@
                 // Update icon to enter fullscreen
                 fullscreenIcon.innerHTML = '<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>';
             }
+        }
+
+        // Home Button Functionality
+        function goHome() {
+            window.location.href = "{{ route('kiosk.welcome') }}";
         }
         
         // Listen for fullscreen changes to update icon

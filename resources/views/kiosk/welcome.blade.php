@@ -11,7 +11,7 @@
     <div class="relative z-10 flex flex-col items-center justify-center h-full">
         <!-- Dracula Logo -->
         <div class="vh-mb-8">
-            <img src="{{ asset('01/Dracula Logo.png') }}" alt="Dracula Logo" class="responsive-img mx-auto" style="max-width: 80%; margin-top: 20vh;">
+            <img src="{{ asset('01/Dracula Logo.png') }}" alt="Dracula Logo" class="responsive-img mx-auto" style="max-width: 80%; margin-top: 0vh;">
         </div>
 
         <!-- Continue Button -->
