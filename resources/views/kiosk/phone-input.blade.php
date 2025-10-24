@@ -10,12 +10,12 @@
     <!-- Content Overlay -->
     <div class="relative z-10 flex flex-col items-center justify-center h-full">
         <!-- Dracula Logo -->
-        <div class="mb-8">
+        <div class="vh-mb-8">
             <img src="{{ asset('01/Dracula Logo.png') }}" alt="Dracula Logo" class="mx-auto max-w-xs" style="margin-top: 20vh;">
         </div>
 
         <!-- Phone Input Form -->
-        <form id="phoneForm" class="w-full max-w-xs mx-auto mb-8" style="text-align: center;">
+        <form id="phoneForm" class="w-full max-w-xs mx-auto vh-mb-8" style="text-align: center;">
             <div class="mb-6">
                 <div style="color: white;margin-bottom: 1.25vh;">Enter your phone number</div>
                 <input
@@ -25,7 +25,7 @@
                     placeholder="Enter your phone number"
                     class="w-full px-4 py-3 text-lg text-center bg-black bg-opacity-50 border-2 border-red-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-500"
                     required
-                    autocomplete="tel" style="background: white;border-radius: 2.5vh;"
+                    autocomplete="tel" style="background: white;border-radius: 2.5vh;color: black !important;"
                 >
             </div>
 

@@ -10,12 +10,12 @@
     <!-- Content Overlay -->
     <div class="relative z-10 flex flex-col items-center justify-center h-full">
         <!-- Dracula Logo -->
-        <div class="mb-8">
+        <div class="vh-mb-8">
             <img src="{{ asset('01/Dracula Logo.png') }}" alt="Dracula Logo" class="responsive-img mx-auto" style="max-width: 80%; margin-top: 20vh;">
         </div>
 
         <!-- Continue Button -->
-        <div class="mt-auto mb-8">
+        <div class="mt-auto vh-mb-8" style="margin-top: 422px;">
             <button onclick="startExperience()" class="responsive-btn transition-all duration-300 transform hover:scale-105">
                 <img src="{{ asset('01/Button_Continue.png') }}" alt="Continue" class="responsive-img mx-auto" style="height: 8vh;">
             </button>

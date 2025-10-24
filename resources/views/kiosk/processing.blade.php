@@ -10,12 +10,12 @@
     <!-- Content Overlay -->
     <div class="relative z-10 flex flex-col items-center justify-center h-full">
         <!-- Dracula Logo -->
-        <div class="mb-8">
+        <div class="vh-mb-8">
             <img src="{{ asset('05/Dracula Logo.png') }}" alt="Dracula Logo" class="mx-auto max-w-xs">
         </div>
         
         <!-- Processing Content -->
-        <div class="mb-8 text-center text-white">
+        <div class="vh-mb-8 text-center text-white">
             <div class="mb-6">
                 <div class="loading-spinner mx-auto mb-6"></div>
                 <div class="space-y-2">
@@ -24,7 +24,7 @@
                 </div>
             </div>
             
-            <div class="mb-8">
+            <div class="vh-mb-8">
                 <div class="bg-black bg-opacity-50 rounded-lg">
                     <h3 class="text-lg font-bold text-red-400 mb-4">🦇 Transformation Progress</h3>
                     <div class="space-y-3 text-left">

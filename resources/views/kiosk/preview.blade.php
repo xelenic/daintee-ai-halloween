@@ -9,7 +9,7 @@
 
     <!-- Header with Dracula Logo -->
     <div class="relative z-10 flex-1 flex items-center justify-center">
-        <div class="mb-8">
+        <div class="vh-mb-8">
             <img src="{{ asset('04/Dracula Logo.png') }}" alt="Dracula Logo" class="mx-auto max-w-xs" style="margin-top: 6vh;height: 12vh;">
         </div>
     </div>
