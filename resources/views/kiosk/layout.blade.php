@@ -519,6 +519,32 @@
             height: 2.5vh;
             fill: currentColor;
         }
+
+        /* Countdown Animation */
+        #countdownNumber {
+            transition: all 0.3s ease;
+            animation: countdownPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes countdownPulse {
+            0% {
+                transform: scale(1);
+                text-shadow: 0 0 2vh rgba(255, 0, 0, 0.8);
+            }
+            50% {
+                transform: scale(1.1);
+                text-shadow: 0 0 4vh rgba(255, 0, 0, 1);
+            }
+            100% {
+                transform: scale(1);
+                text-shadow: 0 0 2vh rgba(255, 0, 0, 0.8);
+            }
+        }
+
+        /* Hidden utility class */
+        .hidden {
+            display: none !important;
+        }
         
         /* Preloader Styles */
         .preloader {
