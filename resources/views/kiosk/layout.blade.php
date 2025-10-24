@@ -545,6 +545,24 @@
         .hidden {
             display: none !important;
         }
+
+        /* Disclaimer Styles */
+        .disclaimer {
+            position: absolute;
+            bottom: 1vh;
+            left: 2vh;
+            right: 2vh;
+            background: rgba(0, 0, 0, 0.8);
+            border: 0.125vh solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.5vh;
+            padding: 1vh 1.5vh;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2vh;
+            line-height: 1.4;
+            text-align: center;
+            z-index: 1000;
+            backdrop-filter: blur(0.5vh);
+        }
         
         /* Preloader Styles */
         .preloader {
@@ -719,6 +737,11 @@
         <!-- Main Content -->
         <div class="flex-1 flex flex-col items-center justify-center fade-in">
             @yield('content')
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer">
+            <strong>Disclaimer:</strong> By participating in this activation, you agree to have your selfie used to create a Dracula-style image for entertainment purposes. The generated images will be securely stored in our system and used only for this campaign. We will not post or use your image on any social media without your permission.
         </div>
     </div>
 

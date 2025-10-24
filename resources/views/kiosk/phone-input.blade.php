@@ -8,7 +8,7 @@
     </div>
 
     <!-- Content Overlay -->
-    <div class="relative z-10 flex flex-col items-center justify-center h-full">
+    <div class="relative z-10 flex flex-col items-center justify-center h-full" style="zoom: 200%">
         <!-- Dracula Logo -->
         <div class="vh-mb-8">
             <img src="{{ asset('01/Dracula Logo.png') }}" alt="Dracula Logo" class="mx-auto max-w-xs" style="">
@@ -34,7 +34,7 @@
                     type="submit"
                     id="submitBtn"
                     class="w-full transition-all duration-300 transform hover:scale-105">
-                    <img src="{{ asset('02/Button_Next.png') }}" alt="Next" class="mx-auto" style="height: 8vh;object-fit: contain;">
+                    <img src="{{ asset('02/Button_Next.png') }}" alt="Next" class="mx-auto" style="height: 4vh;object-fit: contain;">
                 </button>
             </div>
 
