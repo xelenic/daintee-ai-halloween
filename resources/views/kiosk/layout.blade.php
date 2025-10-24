@@ -646,7 +646,7 @@
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col items-center justify-center p-6 fade-in">
+        <div class="flex-1 flex flex-col items-center justify-center fade-in">
             @yield('content')
         </div>
     </div>

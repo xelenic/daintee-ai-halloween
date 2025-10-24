@@ -8,7 +8,7 @@
     </div>
     
     <!-- Content Overlay -->
-    <div class="relative z-10 flex flex-col items-center justify-center h-full p-6">
+    <div class="relative z-10 flex flex-col items-center justify-center h-full">
         <!-- Dracula Logo -->
         <div class="mb-8">
             <img src="{{ asset('05/Dracula Logo.png') }}" alt="Dracula Logo" class="mx-auto max-w-xs">
@@ -25,7 +25,7 @@
             </div>
             
             <div class="mb-8">
-                <div class="bg-black bg-opacity-50 rounded-lg p-6">
+                <div class="bg-black bg-opacity-50 rounded-lg">
                     <h3 class="text-lg font-bold text-red-400 mb-4">🦇 Transformation Progress</h3>
                     <div class="space-y-3 text-left">
                         <div class="flex items-center">

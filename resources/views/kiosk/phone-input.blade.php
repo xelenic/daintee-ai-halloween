@@ -8,7 +8,7 @@
     </div>
 
     <!-- Content Overlay -->
-    <div class="relative z-10 flex flex-col items-center justify-center h-full p-6">
+    <div class="relative z-10 flex flex-col items-center justify-center h-full">
         <!-- Dracula Logo -->
         <div class="mb-8">
             <img src="{{ asset('01/Dracula Logo.png') }}" alt="Dracula Logo" class="mx-auto max-w-xs" style="margin-top: 20vh;">
