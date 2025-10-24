@@ -40,7 +40,7 @@ class KioskController extends Controller
     public function processPhone(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'phone_number' => 'required|string|min:10|max:15'
+            'phone_number' => 'required|string|max:15'
         ]);
 
         if ($validator->fails()) {

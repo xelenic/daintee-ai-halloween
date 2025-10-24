@@ -10,7 +10,7 @@
         <!-- Header with Daintee Logo -->
         <div class="relative z-10 flex-1 flex items-center justify-center">
             <div class="vh-mb-8">
-                <img src="{{ asset('01/Dracula Logo.png') }}" alt="Dracula Logo" class="responsive-img mx-auto" style="max-width: 60%; margin-top: 6vh; height: 12vh;">
+                <img src="{{ asset('01/Dracula Logo.png') }}" alt="Dracula Logo" class="responsive-img mx-auto" style="margin-top: 6vh; height: 12vh;">
             </div>
         </div>
 
