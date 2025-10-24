@@ -21,19 +21,19 @@
     <div class="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-end">
         <!-- Daintee Logo on Left -->
         <div class="flex items-center">
-            <div class="text-red-600 font-bold" style="font-family: 'Creepster', cursive; font-size: 1.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
+            <div class="text-red-600 font-bold responsive-title" style="font-family: 'Creepster', cursive; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
                 Daintee
             </div>
         </div>
         
         <!-- QR Code on Right -->
         <div class="flex flex-col items-center">
-            <div id="qrCode" class="bg-white p-2 rounded shadow-lg mb-2">
+            <div id="qrCode" class="bg-white p-2 rounded shadow-lg mb-2" style="width: 12vh; height: 12vh;">
                 <!-- QR Code will be generated here -->
             </div>
             <div class="text-center text-white">
-                <p class="text-xs font-semibold">Download Your Image</p>
-                <p class="text-xs text-gray-300">Using the QR Code</p>
+                <p class="responsive-subtitle font-semibold">Download Your Image</p>
+                <p class="responsive-subtitle text-gray-300">Using the QR Code</p>
             </div>
         </div>
     </div>
@@ -41,10 +41,10 @@
     <!-- Download & Share Buttons (Only visible when accessed via QR code) -->
     <div id="qrActions" class="absolute bottom-20 left-1/2 transform -translate-x-1/2 hidden">
         <div class="bg-black bg-opacity-80 rounded-lg p-4 flex space-x-4">
-            <button onclick="downloadImage()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 text-sm">
+            <button onclick="downloadImage()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 responsive-btn">
                 📥 Download
             </button>
-            <button onclick="shareImage()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 text-sm">
+            <button onclick="shareImage()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 responsive-btn">
                 📤 Share
             </button>
         </div>

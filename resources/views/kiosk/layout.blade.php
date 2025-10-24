@@ -28,10 +28,8 @@
         }
 
         .kiosk-container {
-            width: 100%;
-            height: 100%;
-            max-width: 100vw;
-            max-height: 100vh;
+            width: 100vw;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -39,47 +37,24 @@
             overflow: hidden;
         }
 
-        /* Mobile-first responsive design */
-        @media (min-width: 375px) {
-            .kiosk-container {
-                width: 375px;
-                height: 667px;
-                border-radius: 20px;
-                box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            }
-        }
 
-        @media (min-width: 768px) {
-            .kiosk-container {
-                width: 414px;
-                height: 736px;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .kiosk-container {
-                width: 480px;
-                height: 800px;
-            }
-        }
-
-        /* Responsive typography */
+        /* Responsive typography using vh */
         .responsive-text {
-            font-size: clamp(14px, 4vw, 24px);
+            font-size: 2.5vh;
         }
 
         .responsive-title {
-            font-size: clamp(18px, 6vw, 32px);
+            font-size: 4vh;
         }
 
         .responsive-subtitle {
-            font-size: clamp(12px, 3vw, 18px);
+            font-size: 2vh;
         }
 
-        /* Responsive buttons */
+        /* Responsive buttons using vh */
         .responsive-btn {
-            padding: clamp(8px, 2vw, 16px) clamp(16px, 4vw, 32px);
-            font-size: clamp(14px, 3vw, 20px);
+            padding: 1.5vh 3vh;
+            font-size: 2.5vh;
         }
 
         /* Responsive images */
@@ -96,14 +71,14 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: clamp(10px, 2vw, 20px);
+            padding: 2vh;
             box-sizing: border-box;
         }
 
         /* Touch-friendly interactions for kiosk */
         button, .clickable {
-            min-height: 44px;
-            min-width: 44px;
+            min-height: 6vh;
+            min-width: 6vh;
             touch-action: manipulation;
         }
 

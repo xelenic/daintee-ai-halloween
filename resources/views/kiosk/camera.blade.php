@@ -7,33 +7,33 @@
         <img src="{{ asset('03/BG.png') }}" alt="Background" class="responsive-img w-full h-full object-cover">
     </div>
 
-    <!-- Header with Daintee Logo -->
-    <div class="relative z-10 flex-1 flex items-center justify-center">
-        <div class="mb-8">
-            <img src="{{ asset('01/Dracula Logo.png') }}" alt="Dracula Logo" class="responsive-img mx-auto" style="max-width: 60%; margin-top: 6vh; height: 12vh;">
-        </div>
-    </div>
-
-    <!-- Camera Frame Container -->
-    <div class="relative z-10 flex-1 flex items-center justify-center px-8">
-        <div class="relative">
-            <!-- White Frame with Red Border -->
-            <div class="bg-white border-2 border-red-600 rounded-lg p-4 shadow-2xl responsive-img" style="width: clamp(200px, 40vw, 280px); height: clamp(180px, 35vw, 260px); padding: 0; margin-bottom: 40px; border-radius: 5vh;">
-                <!-- Video fills the frame -->
-                <video id="video" autoplay playsinline class="responsive-img w-full h-full object-cover rounded" style="border-radius: 5vh;"></video>
-                <canvas id="canvas" style="display: none;"></canvas>
+        <!-- Header with Daintee Logo -->
+        <div class="relative z-10 flex-1 flex items-center justify-center">
+            <div class="mb-8">
+                <img src="{{ asset('01/Dracula Logo.png') }}" alt="Dracula Logo" class="responsive-img mx-auto" style="max-width: 60%; margin-top: 6vh; height: 12vh;">
             </div>
         </div>
-    </div>
 
-    <!-- Controls Section -->
-    <div class="relative z-10 flex-1 flex flex-col items-center justify-center px-8">
-        <!-- Take Snap Button -->
-        <div class="mb-6">
-            <button onclick="capturePhoto()" class="responsive-btn transition-all duration-300 transform hover:scale-105">
-                <img src="{{ asset('03/Button_Snap.png') }}" alt="Snap Photo" class="responsive-img mx-auto" style="max-height: 8vh; min-height: 60px;">
-            </button>
+        <!-- Camera Frame Container -->
+        <div class="relative z-10 flex-1 flex items-center justify-center px-8">
+            <div class="relative">
+                <!-- White Frame with Red Border -->
+                <div class="bg-white border-2 border-red-600 rounded-lg p-4 shadow-2xl responsive-img" style="width: 40vh; height: 35vh; padding: 0; margin-bottom: 5vh; border-radius: 5vh;">
+                    <!-- Video fills the frame -->
+                    <video id="video" autoplay playsinline class="responsive-img w-full h-full object-cover rounded" style="border-radius: 5vh;"></video>
+                    <canvas id="canvas" style="display: none;"></canvas>
+                </div>
+            </div>
         </div>
+
+        <!-- Controls Section -->
+        <div class="relative z-10 flex-1 flex flex-col items-center justify-center px-8">
+            <!-- Take Snap Button -->
+            <div class="mb-6">
+                <button onclick="capturePhoto()" class="responsive-btn transition-all duration-300 transform hover:scale-105">
+                    <img src="{{ asset('03/Button_Snap.png') }}" alt="Snap Photo" class="responsive-img mx-auto" style="height: 8vh;">
+                </button>
+            </div>
 
         <!-- Back Button -->
         <div class="mb-4">

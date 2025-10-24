@@ -17,7 +17,7 @@
         <!-- Continue Button -->
         <div class="mt-auto mb-8">
             <button onclick="startExperience()" class="responsive-btn transition-all duration-300 transform hover:scale-105">
-                <img src="{{ asset('01/Button_Continue.png') }}" alt="Continue" class="responsive-img mx-auto" style="max-height: 8vh; min-height: 60px;">
+                <img src="{{ asset('01/Button_Continue.png') }}" alt="Continue" class="responsive-img mx-auto" style="height: 8vh;">
             </button>
         </div>
     </div>
