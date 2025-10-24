@@ -99,10 +99,8 @@
             // Add canvas to container
             qrContainer.appendChild(canvas);
             
-            console.log('QR Code generated successfully');
             
         } catch (error) {
-            console.error('QR Code generation failed:', error);
             // Fallback: show URL as text
             qrContainer.innerHTML = `
                 <div class="text-center p-2" style="width: 80px; height: 80px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
@@ -129,11 +127,9 @@
         qrImage.onload = function() {
             qrContainer.innerHTML = '';
             qrContainer.appendChild(qrImage);
-            console.log('QR Code loaded from online service');
         };
         
         qrImage.onerror = function() {
-            console.error('Online QR service failed');
             // Show fallback text
             qrContainer.innerHTML = `
                 <div class="text-center p-2" style="width: 80px; height: 80px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
@@ -162,7 +158,6 @@
             // Mark as QR accessed
             sessionStorage.setItem('qrAccessed', 'true');
             
-            console.log('QR code access detected - showing download/share buttons');
         }
     }
     
@@ -195,7 +190,6 @@
             }).then(() => {
                 showMessage('Shared successfully! 📤');
             }).catch((err) => {
-                console.log('Error sharing:', err);
                 fallbackShare();
             });
         } else {
@@ -254,7 +248,6 @@
         try {
             generateQRCode();
         } catch (error) {
-            console.log('Local QR generation failed, trying online service...');
             generateQRCodeOnline();
         }
         

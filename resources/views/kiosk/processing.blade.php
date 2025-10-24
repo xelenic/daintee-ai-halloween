@@ -99,18 +99,14 @@
             url: "{{ route('kiosk.status', $session->session_id) }}",
             method: 'GET',
             success: function(response) {
-                console.log('Status check response:', response);
                 
                 if (response.completed) {
                     // Processing complete, redirect to result
-                    console.log('Processing completed, redirecting to result...');
                     window.location.href = response.redirect;
                 } else if (response.status === 'failed') {
-                    console.log('Processing failed');
                     alert('Transformation failed. Please try again.');
                     window.location.href = "{{ route('kiosk.camera', $session->session_id) }}";
                 } else if (response.status === 'processing') {
-                    console.log('Still processing...');
                     // Update UI to show processing status
                     $('#statusText').text('AI is transforming your photo...');
                     $('#progressText').text('This may take 30-60 seconds');
@@ -118,7 +114,6 @@
                 // If still processing, continue checking
             },
             error: function(xhr, status, error) {
-                console.log('Error checking status:', error, 'Will retry...');
             }
         });
     }

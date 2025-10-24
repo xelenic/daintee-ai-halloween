@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Halloween Dracula Kiosk</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -28,15 +28,104 @@
         }
 
         .kiosk-container {
-            width: 375.688px;
-            height: 699px;
+            width: 100%;
+            height: 100%;
+            max-width: 100vw;
+            max-height: 100vh;
             display: flex;
             flex-direction: column;
             position: relative;
             background: #000;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             overflow: hidden;
+        }
+
+        /* Mobile-first responsive design */
+        @media (min-width: 375px) {
+            .kiosk-container {
+                width: 375px;
+                height: 667px;
+                border-radius: 20px;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .kiosk-container {
+                width: 414px;
+                height: 736px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .kiosk-container {
+                width: 480px;
+                height: 800px;
+            }
+        }
+
+        /* Responsive typography */
+        .responsive-text {
+            font-size: clamp(14px, 4vw, 24px);
+        }
+
+        .responsive-title {
+            font-size: clamp(18px, 6vw, 32px);
+        }
+
+        .responsive-subtitle {
+            font-size: clamp(12px, 3vw, 18px);
+        }
+
+        /* Responsive buttons */
+        .responsive-btn {
+            padding: clamp(8px, 2vw, 16px) clamp(16px, 4vw, 32px);
+            font-size: clamp(14px, 3vw, 20px);
+        }
+
+        /* Responsive images */
+        .responsive-img {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+        }
+
+        /* Ensure content fits within container */
+        .content-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: clamp(10px, 2vw, 20px);
+            box-sizing: border-box;
+        }
+
+        /* Touch-friendly interactions for kiosk */
+        button, .clickable {
+            min-height: 44px;
+            min-width: 44px;
+            touch-action: manipulation;
+        }
+
+        /* Prevent zoom on double tap */
+        * {
+            touch-action: manipulation;
+        }
+
+        /* Kiosk-specific optimizations */
+        @media (orientation: landscape) {
+            .kiosk-container {
+                max-width: 100vh;
+                max-height: 100vw;
+            }
+        }
+
+        /* High DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .responsive-img {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
         }
 
         .halloween-bg {
@@ -825,7 +914,6 @@
                 this.images = [...allImages, ...backgroundImages];
                 this.totalImages = this.images.length;
                 
-                console.log(`Found ${this.totalImages} images to load`);
             }
             
             findBackgroundImages() {
