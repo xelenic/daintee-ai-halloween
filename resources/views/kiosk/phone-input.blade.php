@@ -17,7 +17,7 @@
         <!-- Phone Input Form -->
         <form id="phoneForm" class="w-full max-w-xs mx-auto mb-8" style="text-align: center;">
             <div class="mb-6">
-                <div style="color: white;margin-bottom: 10px;">Enter your phone number</div>
+                <div style="color: white;margin-bottom: 1.25vh;">Enter your phone number</div>
                 <input
                     type="tel"
                     id="phone_number"
@@ -25,7 +25,7 @@
                     placeholder="Enter your phone number"
                     class="w-full px-4 py-3 text-lg text-center bg-black bg-opacity-50 border-2 border-red-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-500"
                     required
-                    autocomplete="tel" style="background: white;border-radius: 20px;"
+                    autocomplete="tel" style="background: white;border-radius: 2.5vh;"
                 >
             </div>
 
@@ -33,9 +33,8 @@
                 <button
                     type="submit"
                     id="submitBtn"
-                    class="w-full transition-all duration-300 transform hover:scale-105"
-                >
-                    <img src="{{ asset('02/Button_Next.png') }}" alt="Next" class="mx-auto" style="height: 8vh;">
+                    class="w-full transition-all duration-300 transform hover:scale-105">
+                    <img src="{{ asset('02/Button_Next.png') }}" alt="Next" class="mx-auto" style="height: 8vh;object-fit: contain;">
                 </button>
             </div>
 

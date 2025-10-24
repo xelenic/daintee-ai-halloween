@@ -21,7 +21,7 @@
     <div class="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-end">
         <!-- Daintee Logo on Left -->
         <div class="flex items-center">
-            <div class="text-red-600 font-bold responsive-title" style="font-family: 'Creepster', cursive; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
+            <div class="text-red-600 font-bold responsive-title" style="font-family: 'Creepster', cursive; text-shadow: 0.25vh 0.25vh 0.5vh rgba(0,0,0,0.8);">
                 Daintee
             </div>
         </div>
@@ -103,7 +103,7 @@
         } catch (error) {
             // Fallback: show URL as text
             qrContainer.innerHTML = `
-                <div class="text-center p-2" style="width: 80px; height: 80px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <div class="text-center p-2" style="width: 10vh; height: 10vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                     <p class="text-xs text-gray-600 mb-1">Scan:</p>
                     <p class="text-xs text-gray-800 break-all text-center">${currentUrl}</p>
                 </div>
@@ -121,8 +121,8 @@
         const qrImage = document.createElement('img');
         qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=${encodeURIComponent(currentUrl)}`;
         qrImage.alt = 'QR Code';
-        qrImage.style.width = '80px';
-        qrImage.style.height = '80px';
+        qrImage.style.width = '10vh';
+        qrImage.style.height = '10vh';
         
         qrImage.onload = function() {
             qrContainer.innerHTML = '';
@@ -132,7 +132,7 @@
         qrImage.onerror = function() {
             // Show fallback text
             qrContainer.innerHTML = `
-                <div class="text-center p-2" style="width: 80px; height: 80px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <div class="text-center p-2" style="width: 10vh; height: 10vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                     <p class="text-xs text-gray-600 mb-1">Scan:</p>
                     <p class="text-xs text-gray-800 break-all text-center">${currentUrl}</p>
                 </div>
@@ -226,10 +226,10 @@
                 'transform': 'translate(-50%, -50%)',
                 'background': 'rgba(0, 0, 0, 0.9)',
                 'color': 'white',
-                'padding': '15px 25px',
-                'border-radius': '8px',
+                'padding': '1.875vh 3.125vh',
+                'border-radius': '1vh',
                 'z-index': '10000',
-                'font-size': '16px',
+                'font-size': '2vh',
                 'font-weight': 'bold'
             });
         

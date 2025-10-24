@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Halloween Dracula Kiosk</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -25,6 +25,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            /* Prevent zoom and ensure stable layout */
+            zoom: 1;
+            transform: scale(1);
+            transform-origin: 0 0;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
 
         .kiosk-container {
@@ -35,6 +42,35 @@
             position: relative;
             background: #000;
             overflow: hidden;
+            /* Prevent zoom and ensure stable layout */
+            zoom: 1;
+            transform: scale(1);
+            transform-origin: 0 0;
+            -webkit-transform: scale(1);
+            -moz-transform: scale(1);
+            -ms-transform: scale(1);
+            -o-transform: scale(1);
+        }
+
+        /* Prevent zoom on all elements */
+        * {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Allow text selection only for input fields */
+        input, textarea {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
         }
 
 
@@ -109,11 +145,11 @@
 
         .spooky-text {
             color: #ff6b6b;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 0.3vh 0.3vh 0.6vh rgba(0,0,0,0.5);
         }
 
         .glow-effect {
-            box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+            box-shadow: 0 0 2.5vh rgba(255, 107, 107, 0.5);
         }
 
         .pulse-animation {
@@ -131,16 +167,16 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(2.5vh); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .loading-spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #ff6b6b;
+            border: 0.5vh solid #f3f3f3;
+            border-top: 0.5vh solid #ff6b6b;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 6vh;
+            height: 6vh;
             animation: spin 1s linear infinite;
         }
 
@@ -173,38 +209,38 @@
         }
 
         .capture-button {
-            width: 80px;
-            height: 80px;
+            width: 10vh;
+            height: 10vh;
             border-radius: 50%;
             background: #ff6b6b;
-            border: 4px solid white;
+            border: 0.5vh solid white;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 3vh;
             color: white;
             transition: all 0.3s ease;
         }
 
         .capture-button:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(255, 107, 107, 0.8);
+            box-shadow: 0 0 3.5vh rgba(255, 107, 107, 0.8);
         }
 
         .step-indicator {
             position: absolute;
-            top: 20px;
+            top: 2.5vh;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 10px;
+            gap: 1.25vh;
             z-index: 10;
         }
 
         .step-dot {
-            width: 12px;
-            height: 12px;
+            width: 1.5vh;
+            height: 1.5vh;
             border-radius: 50%;
             background: rgba(255,255,255,0.3);
             transition: all 0.3s ease;
@@ -212,7 +248,7 @@
 
         .step-dot.active {
             background: #ff6b6b;
-            box-shadow: 0 0 10px rgba(255, 107, 107, 0.8);
+            box-shadow: 0 0 1.25vh rgba(255, 107, 107, 0.8);
         }
 
         .step-dot.completed {
@@ -245,7 +281,7 @@
 
         .lightning-bolt {
             position: absolute;
-            width: 3px;
+            width: 0.375vh;
             height: 100%;
             background: linear-gradient(to bottom,
                 transparent 0%,
@@ -261,8 +297,8 @@
         /* Floating Particles */
         .floating-particle {
             position: absolute;
-            width: 2px;
-            height: 2px;
+            width: 0.25vh;
+            height: 0.25vh;
             background: rgba(255, 255, 255, 0.6);
             border-radius: 50%;
             animation: float-particle 8s infinite linear;
@@ -305,8 +341,8 @@
         /* Spooky Shadows */
         .spooky-shadow {
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 2.5vh;
+            height: 2.5vh;
             background: radial-gradient(circle, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
             border-radius: 50%;
             animation: spooky-float 6s infinite ease-in-out;
@@ -330,7 +366,7 @@
         @keyframes lightning-bolt {
             0% {
                 opacity: 0;
-                transform: translateX(-50px) scaleY(0.1);
+                transform: translateX(-6.25vh) scaleY(0.1);
             }
             20% {
                 opacity: 1;
@@ -342,13 +378,13 @@
             }
             100% {
                 opacity: 0;
-                transform: translateX(50px) scaleY(0.1);
+                transform: translateX(6.25vh) scaleY(0.1);
             }
         }
 
         @keyframes float-particle {
             0% {
-                transform: translateY(100vh) translateX(0px) rotate(0deg);
+                transform: translateY(100vh) translateX(0vh) rotate(0deg);
                 opacity: 0;
             }
             10% {
@@ -358,17 +394,17 @@
                 opacity: 1;
             }
             100% {
-                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                transform: translateY(-12.5vh) translateX(12.5vh) rotate(360deg);
                 opacity: 0;
             }
         }
 
         @keyframes glitch-effect {
             0% { opacity: 0; transform: translateX(0); }
-            20% { opacity: 0.1; transform: translateX(-2px); }
-            40% { opacity: 0.2; transform: translateX(2px); }
-            60% { opacity: 0.1; transform: translateX(-1px); }
-            80% { opacity: 0.05; transform: translateX(1px); }
+            20% { opacity: 0.1; transform: translateX(-0.25vh); }
+            40% { opacity: 0.2; transform: translateX(0.25vh); }
+            60% { opacity: 0.1; transform: translateX(-0.125vh); }
+            80% { opacity: 0.05; transform: translateX(0.125vh); }
             100% { opacity: 0; transform: translateX(0); }
         }
 
@@ -380,19 +416,19 @@
 
         @keyframes spooky-float {
             0%, 100% {
-                transform: translateY(0px) translateX(0px) scale(1);
+                transform: translateY(0vh) translateX(0vh) scale(1);
                 opacity: 0.3;
             }
             25% {
-                transform: translateY(-20px) translateX(10px) scale(1.2);
+                transform: translateY(-2.5vh) translateX(1.25vh) scale(1.2);
                 opacity: 0.5;
             }
             50% {
-                transform: translateY(-10px) translateX(-15px) scale(0.8);
+                transform: translateY(-1.25vh) translateX(-1.875vh) scale(0.8);
                 opacity: 0.4;
             }
             75% {
-                transform: translateY(-30px) translateX(5px) scale(1.1);
+                transform: translateY(-3.75vh) translateX(0.625vh) scale(1.1);
                 opacity: 0.6;
             }
         }
@@ -411,29 +447,29 @@
         /* Full Screen Button */
         .fullscreen-btn {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
+            top: 2.5vh;
+            right: 2.5vh;
+            width: 5vh;
+            height: 5vh;
             background: rgba(0, 0, 0, 0.7);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 8px;
+            border: 0.25vh solid rgba(255, 255, 255, 0.3);
+            border-radius: 1vh;
             color: white;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 2.25vh;
             transition: all 0.3s ease;
             z-index: 2000;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(1.25vh);
         }
         
         .fullscreen-btn:hover {
             background: rgba(0, 0, 0, 0.9);
             border-color: rgba(255, 255, 255, 0.6);
             transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 1.875vh rgba(255, 255, 255, 0.3);
         }
         
         .fullscreen-btn:active {
@@ -441,8 +477,8 @@
         }
         
         .fullscreen-btn svg {
-            width: 20px;
-            height: 20px;
+            width: 2.5vh;
+            height: 2.5vh;
             fill: currentColor;
         }
         
@@ -477,36 +513,36 @@
         }
         
         .preloader-logo {
-            width: 200px;
+            width: 25vh;
             height: auto;
-            margin: 0 auto 2rem auto;
+            margin: 0 auto 2.5vh auto;
             animation: preloader-pulse 2s infinite;
-            filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.5));
+            filter: drop-shadow(0 0 2.5vh rgba(255, 107, 107, 0.5));
             display: block;
         }
         
         .preloader-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(255, 107, 107, 0.3);
-            border-top: 4px solid #ff6b6b;
+            width: 7.5vh;
+            height: 7.5vh;
+            border: 0.5vh solid rgba(255, 107, 107, 0.3);
+            border-top: 0.5vh solid #ff6b6b;
             border-radius: 50%;
             animation: preloader-spin 1s linear infinite;
-            margin: 0 auto 2rem;
+            margin: 0 auto 2.5vh;
         }
         
         .preloader-text {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
+            font-size: 1.5vh;
+            margin-bottom: 1.25vh;
             color: #ff6b6b;
             font-weight: bold;
         }
         
         .preloader-progress {
-            width: 200px;
-            height: 4px;
+            width: 25vh;
+            height: 0.5vh;
             background: rgba(255, 255, 255, 0.2);
-            border-radius: 2px;
+            border-radius: 0.25vh;
             overflow: hidden;
             margin: 0 auto;
         }
@@ -516,13 +552,13 @@
             background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
             width: 0%;
             transition: width 0.3s ease;
-            border-radius: 2px;
+            border-radius: 0.25vh;
         }
         
         .preloader-percentage {
-            font-size: 0.9rem;
+            font-size: 1.125vh;
             color: #ccc;
-            margin-top: 0.5rem;
+            margin-top: 0.625vh;
         }
         
         .preloader-particles {
@@ -536,8 +572,8 @@
         
         .preloader-particle {
             position: absolute;
-            width: 2px;
-            height: 2px;
+            width: 0.25vh;
+            height: 0.25vh;
             background: rgba(255, 107, 107, 0.6);
             border-radius: 50%;
             animation: preloader-float 4s infinite linear;
@@ -555,7 +591,7 @@
         
         @keyframes preloader-float {
             0% {
-                transform: translateY(100vh) translateX(0px);
+                transform: translateY(100vh) translateX(0vh);
                 opacity: 0;
             }
             10% {
@@ -565,7 +601,7 @@
                 opacity: 1;
             }
             100% {
-                transform: translateY(-100px) translateX(100px);
+                transform: translateY(-12.5vh) translateX(12.5vh);
                 opacity: 0;
             }
         }

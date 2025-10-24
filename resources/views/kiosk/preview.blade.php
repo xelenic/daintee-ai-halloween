@@ -18,7 +18,7 @@
     <div class="relative z-10 flex-1 flex items-center justify-center px-8">
         <div class="relative">
             <!-- White Frame with Red Border containing the photo -->
-            <div class="bg-white border-2 border-red-600 rounded-lg shadow-2xl" style="width: 280px;height: 260px;border-radius: 5vh;">
+            <div class="bg-white border-2 border-red-600 rounded-lg shadow-2xl" style="width: 35vh;height: 32.5vh;border-radius: 5vh;">
                 <img
                     src="{{ Storage::url($session->original_image_path) }}"
                     alt="Your photo"
