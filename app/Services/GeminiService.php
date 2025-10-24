@@ -15,7 +15,7 @@ class GeminiService
     public function __construct()
     {
         $this->client = new Client();
-        $this->apiKey = 'AIzaSyAJXm8GswHsj-QWw5JHv2HXEl1QDNQ2TFo';
+        $this->apiKey = 'AIzaSyCyGHMRdYYzcfjBcKKEL1ilcZWapJOpe_c';
     }
 
     public function convertToDracula($imagePath)

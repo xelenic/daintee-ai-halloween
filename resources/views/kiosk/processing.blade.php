@@ -56,7 +56,9 @@
         
         <!-- Footer -->
         <div class="mt-auto">
-            <img src="{{ asset('05/Footer.png') }}" alt="Footer" class="mx-auto">
+            <img src="{{ asset('05/Footer.png') }}" alt="Footer" class="mx-auto" style="
+    height: 5vh;
+    margin-bottom: 3vh;">
         </div>
     </div>
 </div>

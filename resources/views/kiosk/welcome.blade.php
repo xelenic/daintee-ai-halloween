@@ -15,7 +15,7 @@
         </div>
 
         <!-- Continue Button -->
-        <div class="mt-auto vh-mb-8" style="margin-top: 422px;">
+        <div class="mt-auto vh-mb-8" style="margin-top: 28vh;">
             <button onclick="startExperience()" class="responsive-btn transition-all duration-300 transform hover:scale-105">
                 <img src="{{ asset('01/Button_Continue.png') }}" alt="Continue" class="responsive-img mx-auto" style="height: 8vh;">
             </button>
