@@ -21,7 +21,7 @@
     <div class="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-end">
         <!-- Dracula Logo on Left -->
         <div class="flex items-center">
-            <img src="{{ asset('06/Dracula Logo.png') }}" alt="Dracula Logo" class="responsive-logo" style="max-height: 8vh; max-width: 15vh; height: auto; width: auto;">
+            <img src="{{ asset('06/Dracula Logo.png') }}" alt="Dracula Logo" class="responsive-logo" style="max-height: 8vh;m;max-width: 24vh;height: auto;width: auto;margin-bottom: 12vh;">
         </div>
 
         <!-- QR Code on Right -->
