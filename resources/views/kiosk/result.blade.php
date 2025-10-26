@@ -19,11 +19,9 @@
 
     <!-- Bottom UI Elements Overlay -->
     <div class="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-end">
-        <!-- Daintee Logo on Left -->
+        <!-- Dracula Logo on Left -->
         <div class="flex items-center">
-            <div class="text-red-600 font-bold responsive-title" style="font-family: 'Creepster', cursive; text-shadow: 0.25vh 0.25vh 0.5vh rgba(0,0,0,0.8);">
-                Daintee
-            </div>
+            <img src="{{ asset('06/Dracula Logo.png') }}" alt="Dracula Logo" class="responsive-logo" style="max-height: 8vh; max-width: 15vh; height: auto; width: auto;">
         </div>
 
         <!-- QR Code on Right -->
